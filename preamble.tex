@@ -1,0 +1,102 @@
+\documentclass[10pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[margin=2cm]{geometry}
+\usepackage{amsmath, amssymb, amsthm, amsfonts, mathrsfs}
+\usepackage{mathtools}
+\usepackage{tikz-cd}
+\usepackage[most]{tcolorbox}
+\usepackage{enumitem}
+\usepackage{titlesec}
+\usepackage{hyperref}
+
+
+% --- Typography & Layout Styling ---
+\titleformat{\section}{\normalfont\Large\bfseries\color{darkgray}}{\thesection}{1em}{}[{\titlerule[1pt]}]
+\titleformat{\subsection}{\normalfont\large\bfseries\color{darkgray}}{\thesubsection}{1em}{}
+
+
+% --- Color Palette  ---
+\definecolor{ideacolor}{RGB}{41, 128, 185}       % Blue for Key Concepts
+\definecolor{categorycolor}{RGB}{142, 68, 173}   % Purple for Categorical Abstraction
+\definecolor{examplecolor}{RGB}{39, 174, 96}     % Green for Applications & Examples
+\definecolor{warningcolor}{RGB}{211, 84, 0}      % Orange for Pitfalls & Warnings
+\definecolor{roadmapcolor}{RGB}{127, 140, 141}   % Grey for Proof Strategies & Meta-Notes
+
+% --- Box Styles ---
+\newtcolorbox{keyidea}[1]{
+	enhanced, colback=ideacolor!4, colframe=ideacolor, sharp corners, boxrule=1pt,
+	fonttitle=\bfseries\sffamily, title={Key Idea: #1},
+	attach boxed title to top left={yshift=-2mm, xshift=3mm}, boxed title style={colback=ideacolor}
+}
+\newtcolorbox{categorical}[1]{
+	enhanced, colback=categorycolor!4, colframe=categorycolor, sharp corners, boxrule=1pt,
+	fonttitle=\bfseries\sffamily, title={Categorical Interpretation: #1},
+	attach boxed title to top left={yshift=-2mm, xshift=3mm}, boxed title style={colback=categorycolor}
+}
+\newtcolorbox{examplebox}[1]{
+	enhanced, colback=examplecolor!4, colframe=examplecolor, sharp corners, boxrule=1pt,
+	fonttitle=\bfseries\sffamily, title={Example: #1},
+	attach boxed title to top left={yshift=-2mm, xshift=3mm}, boxed title style={colback=examplecolor}
+}
+\newtcolorbox{warningbox}[1]{
+	enhanced, colback=warningcolor!4, colframe=warningcolor, sharp corners, boxrule=1.2pt,
+	fonttitle=\bfseries\sffamily, title={Warning / Pitfall: #1},
+	attach boxed title to top left={yshift=-2mm, xshift=3mm}, boxed title style={colback=warningcolor}
+}
+\newtcolorbox{roadmap}[1]{
+	enhanced, colback=roadmapcolor!4, colframe=roadmapcolor, sharp corners, boxrule=1pt,
+	fonttitle=\bfseries\sffamily, title={Proof Strategy: #1},
+	attach boxed title to top left={yshift=-2mm, xshift=3mm}, boxed title style={colback=roadmapcolor}
+}
+
+
+
+%% Basic typesetting %%
+\newcommand{\st}[0]{\mid}            % such that
+\newcommand{\ol}[1]{\overline{#1}}   % overline shorthand
+\newcommand{\scr}[1]{\mathscr{#1}}   % script (e.g. for categories)
+
+
+%% Sets %%
+\newcommand{\C}[0]{\mathbb{C}}   % Complex
+\newcommand{\R}[0]{\mathbb{R}}   % Reals
+\newcommand{\Z}[0]{\mathbb{Z}}   % Integers
+\newcommand{\N}[0]{\mathbb{N}}   % Naturals
+\newcommand{\F}[0]{\mathbb{F}}   % Field K
+\newcommand{\Q}[0]{\mathbb{Q}}   % Rationals
+\renewcommand{\H}[0]{\mathbb{H}} % Quaternions
+\renewcommand{\P}[0]{\mathbb{P}} % Projective space
+
+%% Basic operators %%
+\newcommand{\Aut}{\text{Aut}}            % Automorphism group
+\newcommand{\id}[0]{\operatorname{id}}   % Identity operator
+\newcommand{\tr}[0]{\operatorname{tr}}   % Trace operator
+\newcommand{\ch}{\operatorname{char}}    % Character
+\newcommand{\spa}{\operatorname{span}}   % Span
+\newcommand{\sgn}[0]{\operatorname{sgn}} % Sign
+\renewcommand{\hom}{\operatorname{Hom}}  % Hom
+\newcommand{\Ima}[0]{\operatorname{Im}}  % Image
+\newcommand{\Ann}{\operatorname{Ann}}    % Annihilator
+\newcommand{\End}{\operatorname{End}}    % Endomorphism ring
+
+%% Category theoretic things %%
+\newcommand{\cat}[1]{\mathbf{#1}}         
+\newcommand{\Ob}{\operatorname{Ob}}      % Object
+\newcommand{\Mor}{\operatorname{Mor}}    % Morphism
+\newcommand{\op}[0]{^{\text{op}}}        % Opposite category
+
+%% Scheme things %%
+\renewcommand{\O}[0]{\mathcal{O}}        % Structure sheaf
+
+
+
+
+%% Environments %%
+\newtheorem{problem}{Problem}
+
+\theoremstyle{remark}
+\newtheorem*{solution*}{Solution}
+\newtheorem{lemma}{Lemma}
+
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[section]

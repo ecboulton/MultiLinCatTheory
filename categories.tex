@@ -1,0 +1,91 @@
+\subsection{Objects and morphisms}
+% for defining categories, objects, morphisms, 
+
+\begin{definition}[Category]
+	A \emph{category} $\scr{C}$ consists of the following data:
+	\begin{itemize}
+		\item A class of \emph{objects}, denoted $\Ob (\scr{C})$, for example sets, groups, rings.
+		\item For every $A, B \in \Ob (\scr{C})$, a set of \emph{morphisms} or \emph{arrows}, denoted $\Mor_{\scr{C}} (A, B)$ or $\hom_{\scr{C}} (A,B)$, 
+		\item For every $A, B, C \in \Ob (\scr{C})$, a \emph{composition} operation 
+		\begin{align*}
+			\circ: \hom_{\scr{C}} (A,B) \times \hom_{\scr{C}} (B,C) & \to \hom_{\scr{C}} (A,C) \\
+			(f, g) & \mapsto gf
+		\end{align*}
+		such that
+		\begin{itemize}
+			\item Composition is associative (when defined), and 
+			\item For every $A \in \Ob{\scr{C}}$ there is an identity morphism $1_A \in \hom_{\scr{C}} (A,A)$ such that $1_A f = f$ and $g 1_A = g$ for every $f \in \hom_{\scr{C}} (B,A)$ and $g \in \hom_{\scr{C}} (A,B)$
+		\end{itemize}
+	\end{itemize}
+\end{definition}
+
+%\begin{definition}{Subcategory}
+%	Given a category $\scr{C}$, a \emph{subcategory} $\scr{D}$ consists of a subcollection of $\Ob(\scr{C})$ and a subcollection of $\hom_{\scr{C}}$ such that:
+%	\begin{itemize}
+%		\item \textbf{$\scr{D}$-morphisms are between $\scr{D}$-objects.} If $f: x \to y$ is in $\hom_{\scr{D}}$, then $x,y \in \Ob ({\scr{D}})$ 
+%		\item \textbf{Closed under composition.} If $f: x \to y, g: y \to z$ are in $\hom_{\scr{D}}$, then $gf$ is in $\hom_{\scr{D}}$
+%		\item \textbf{}
+%	\end{itemize}
+%%	Let $\scr{C}$ and $\scr{D}$ be categories such that $\Ob({\scr{D}}) \subset \Ob({\scr{C}})$ and $\hom_{\scr{D}} \subset \hom_{\scr{C}}$. Then $\scr{D}$ is called a \emph{subcategory} of $\scr{C}$ if 
+%\end{definition}
+
+
+
+\begin{keyidea}{Purpose and intuition of categories}
+	An object is an abstract structure, for example a set, group or ring. A morphism is a structure-preserving map, for example a function or a group/ring homomorphism.
+%	Category theory generalises many areas of mathematics and distils them into how structres interact and are preserved by morphisms. 
+\end{keyidea}
+
+\begin{examplebox}{Categories}
+	\begin{itemize}
+		\item $\cat{Sets}$: sets and functions, with function composition. Any category consisting of sets and functions ($\cat{Groups}$, $ \cat{Rings}$, $\cat{Top}$, etc) will have function composition as the composition rule.
+		\item $\cat{Groups}$: groups and group homomorphisms.
+		\item $\cat{AbGrps}$: abelian groups and group homomorphisms.
+		\item $\cat{Rings}$: rings and ring homomorphisms.
+		\item $\cat{Top}$: topological spaces and continuous maps.
+		\item $\cat{Man}$: smooth manifolds and diffeomorphisms.
+	\end{itemize}
+\end{examplebox}
+
+\begin{warningbox}{Morphisms are not always functions.}
+	%	\textbf{Morphisms may not be set-theoretic functions.} 
+	Consider a category $\scr{C}$ with a single object $\star \in \Ob(\scr{C})$ whose morphisms are elements $g$ of a group $G$ which compose via group multiplication. The morphisms are not themselves functions, but rather elements of the set $G$. 
+\end{warningbox}
+
+\begin{keyidea}{Types of morphisms.}
+	Functions may be injective, surjective, and invertible. We extend this to morphisms $f: a \to b$. \\
+	
+	\textbf{Monomorphism (monic).} Left-cancellable, i.e. $fg_1 = fg_2 \implies g_1 = g_2$. \textit{Extends injectivity.}
+	
+	\textbf{Epimorphism (epic).} Right-cancellable, i.e. $g_1 f = g_2 f \implies g_1 = g_2$. \textit{Extends surjectivity.}
+	
+	\textbf{Bimorphism (mono-epi).} Both monic and epic. \textit{Extends bijectivity.}\\
+	
+	\textbf{Section.} Left-invertible, i.e. there is $g: b \to a$ such that $gf = 1_a$. Necessarily a monomorphism.
+	
+	\textbf{Retraction.} Right-invertible, i.e. there is $g: b \to a$ such that $fg = 1_b$. Necessarily an epimorphism.
+	
+	\textbf{Isomorphism.} Both a section (left-invertible) and retraction (right-invertible) by the same inverse. \textit{Extends invertibility.}
+\end{keyidea}
+
+\begin{roadmap}{Relationships between types of morphisms.}
+	content...
+\end{roadmap}
+
+%\begin{definition}[Isomorphism]
+%	A morphism $f \in \hom_{\scr{C}} (A,B)$ is called an \emph{isomorphism} if there exists $g \in \hom_{\scr{C}} (B,A)$ such that $fg = 1_B$ and $gf = 1_A$. That is, if there is a two-sided inverse to $f$.
+%\end{definition}
+
+
+
+\begin{warningbox}{Bijective morphisms are not always isomorphisms.}
+%	\textbf{Isomorphisms are more than bijective morphisms.} 
+	Certainly if a morphism is not a function, it does not make sense to ask if it is a bijection. But even still, there are functions which are bijective morphisms but their inverse is not a morphism. For example in the category of topological spaces, the function $f: [0, 2\pi) \to S^1$ with $f(\theta) = (\cos \theta, \sin \theta)$ is continuous and bijective, but not a homeomorphism, because the inverse is not continuous.
+\end{warningbox}
+
+
+
+
+
+
+\subsection{Functors and natural transformations}

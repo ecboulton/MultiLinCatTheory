@@ -1,0 +1,119 @@
+\documentclass[10pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[margin=2cm]{geometry}
+\usepackage{amsmath, amssymb, amsthm, amsfonts}
+\usepackage{mathtools} % Fixed typo from mattools
+\usepackage{tikz-cd}
+\usepackage[most]{tcolorbox}
+\usepackage{enumitem}
+\usepackage{titlesec}
+\usepackage{hyperref}
+
+% --- Typography & Layout Styling ---
+\titleformat{\section}{\normalfont\Large\bfseries\color{darkgray}}{\thesection}{1em}{}[{\titlerule[1pt]}]
+\titleformat{\subsection}{\normalfont\large\bfseries\color{darkgray}}{\thesubsection}{1em}{}
+
+
+% --- Color Palette (Muted, Highly Scannable) ---
+\definecolor{ideacolor}{RGB}{41, 128, 185}       % Classic Blue for Key Concepts
+\definecolor{categorycolor}{RGB}{142, 68, 173}   % Deep Purple for Categorical Abstraction
+\definecolor{examplecolor}{RGB}{39, 174, 96}     % Forest Green for Applications & Examples
+\definecolor{warningcolor}{RGB}{211, 84, 0}      % Burnt Orange for Pitfalls & Warnings
+\definecolor{roadmapcolor}{RGB}{127, 140, 141}   % Slate Grey for Proof Strategies & Meta-Notes
+
+% --- Box Styles ---
+\newtcolorbox{keyidea}[1]{
+	enhanced, colback=ideacolor!4, colframe=ideacolor, sharp corners, boxrule=1pt,
+	fonttitle=\bfseries\sffamily, title={Key Idea: #1},
+	attach boxed title to top left={yshift=-2mm, xshift=3mm}, boxed title style={colback=ideacolor}
+}
+\newtcolorbox{categorical}[1]{
+	enhanced, colback=categorycolor!4, colframe=categorycolor, sharp corners, boxrule=1pt,
+	fonttitle=\bfseries\sffamily, title={Categorical Interpretation: #1},
+	attach boxed title to top left={yshift=-2mm, xshift=3mm}, boxed title style={colback=categorycolor}
+}
+\newtcolorbox{examplebox}[1]{
+	enhanced, colback=examplecolor!4, colframe=examplecolor, sharp corners, boxrule=1pt,
+	fonttitle=\bfseries\sffamily, title={Example: #1},
+	attach boxed title to top left={yshift=-2mm, xshift=3mm}, boxed title style={colback=examplecolor}
+}
+\newtcolorbox{warningbox}[1]{
+	enhanced, colback=warningcolor!4, colframe=warningcolor, sharp corners, boxrule=1.2pt,
+	fonttitle=\bfseries\sffamily, title={Warning / Pitfall: #1},
+	attach boxed title to top left={yshift=-2mm, xshift=3mm}, boxed title style={colback=warningcolor}
+}
+\newtcolorbox{roadmap}[1]{
+	enhanced, colback=roadmapcolor!4, colframe=roadmapcolor, sharp corners, boxrule=1pt,
+	fonttitle=\bfseries\sffamily, title={Proof Strategy: #1},
+	attach boxed title to top left={yshift=-2mm, xshift=3mm}, boxed title style={colback=roadmapcolor}
+}
+
+% --- Math Environments ---
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[section]
+\newtheorem{exercise}{Exercise}[section]
+
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\F}{\mathbb{F}}
+
+% --- Document Metadata ---
+\title{\textbf{Multilinear Algebra and Category Theory: Summary Notes}}
+\author{Ella Boulton}
+\date{\today}
+
+\begin{document}
+	
+	\maketitle
+	\tableofcontents
+	\newpage
+	
+	
+	
+	\section{Adjoint Functors}
+	
+	\begin{roadmap}{Navigating Adjunctions}
+		Adjunctions are arguably the most ubiquitous structural relationship in category theory. Rather than proving categories are perfectly isomorphic (which is too restrictive), we show that a pair of opposite functors move back and forth between two categories in a way that preserves universal properties. We present this via three windows: the key definition, the universal arrow construction, and a warning on preservation properties.
+	\end{roadmap}
+	
+	\begin{keyidea}{Definition of Adjoint Pair}
+		Let $\mathcal{C}$ and $\mathcal{D}$ be categories. An \textbf{adjoint pair} consists of two covariant functors:
+		\[ F: \mathcal{C} \longrightarrow \mathcal{D} \quad \text{and} \quad G: \mathcal{D} \longrightarrow \mathcal{C} \]
+		where $F$ is the \textbf{left adjoint} and $G$ is the \textbf{right adjoint} (denoted $F \dashv G$), if there exists a natural bijection of hom-sets:
+		\[ \Phi_{X,Y}: \text{Hom}_{\mathcal{D}}(F(X), Y) \cong \text{Hom}_{\mathcal{C}}(X, G(Y)) \]
+		which is completely natural for all objects $X \in \text{Ob}(\mathcal{C})$ and $Y \in \text{Ob}(\mathcal{D})$.
+	\end{keyidea}
+	
+	\begin{categorical}{The Unit, Counit, and Universal Arrows}
+		Setting $Y = F(X)$ in the hom-set bijection maps the identity morphism $1_{F(X)}$ to a canonical arrow in $\mathcal{C}$ called the \textbf{unit} of the adjunction, denoted $\eta_X: X \to G(F(X))$. 
+		
+		Categorically, this gives $F(X)$ a universal property: for any object $Y \in \mathcal{D}$ and any morphism $f: X \to G(Y)$, there exists a \textit{unique} morphism $\beta: F(X) \to Y$ in $\mathcal{D}$ making the following diagram commute:
+		\begin{center}
+			\begin{tikzcd}
+				X \arrow[r, "\eta_X"] \arrow[rd, "f"'] & G(F(X)) \arrow[d, "G(\beta)", dashed] \\
+				& G(Y)
+			\end{tikzcd}
+		\end{center}
+		Dualising this construction by setting $X = G(Y)$ yields the \textbf{counit} natural transformation $\varepsilon_Y: F(G(Y)) \to Y$.
+	\end{categorical}
+	
+	\begin{examplebox}{Free Modules and Base Change}
+		Adjunctions elegantly systematise major operations from your multilinear algebra chapters:
+		\begin{enumerate}
+			\item \textbf{Free Modules vs. Forgetful Action:} Let $U: \mathbf{RMod} \to \mathbf{Sets}$ be the forgetful functor, and $F: \mathbf{Sets} \to \mathbf{RMod}$ the free module construction $F(X) = R^{(X)}$. Then $F \dashv U$ because specifying an $R$-linear map out of a free module is naturally bijective to mapping elements freely out of its underlying set of generators.
+			\item \textbf{Extension vs. Restriction of Scalars:} For a field extension $\F \subset E$, the scalar extension functor $E \otimes_{\F} - : \mathbf{Vect}_{\F} \to \mathbf{Vect}_{E}$ is left adjoint to the restriction functor $\text{Res}: \mathbf{Vect}_{E} \to \mathbf{Vect}_{\F}$, meaning $\text{Hom}_{E}(E \otimes_{\F} V, W) \cong \text{Hom}_{\F}(V, \text{Res}(W))$.
+		\end{enumerate}
+	\end{examplebox}
+	
+	\begin{warningbox}{Asymmetry of Preservation Properties}
+		Left and right adjoint functors act very differently under limit operations:
+		\begin{itemize}
+			\item Left adjoints $F$ \textbf{preserve all co-limits} (e.g., co-products, pushouts), but generally fail to preserve limits.
+			\item Right adjoints $G$ \textbf{preserve all limits} (e.g., products, pullbacks), but generally fail to preserve co-limits.
+		\end{itemize}
+		When constructing proofs, never assume an adjunction behaves symmetrically. If you are dealing with a product structure ($\prod$), you must evaluate it exclusively on the right-adjoint side of your framework.
+	\end{warningbox}
+	
+	
+	
+\end{document}
